@@ -6,45 +6,31 @@ def solution():
         syms = []
         syms.append([])
         sum = 0
-        sum_parts = set()
         
         for line in source:
             level = []
             sym_level = []
-            for any in re.finditer("[0-9]+|[^\.]",line.strip("\n")):
-                #print(any[0])
-                if any[0].isnumeric():
-                    level.append((int(any[0]),any.span()[0],any.span()[1]))
+            for char in re.finditer("[0-9]+|[^\.]",line.strip("\n")):                
+                if char[0].isnumeric():
+                    level.append((int(char[0]),char.span()[0],char.span()[1]))
                 else:
-                    sym_level.append((any[0], any.span()[0]))
+                    sym_level.append((char[0], char.span()[0]))
             data.append(level)
             syms.append(sym_level)
-        #print(data)
-        #print(syms)
+
         syms.append([])
        
         for i in range(0, len(data)):
             for j in range(0, len(data[i])):
-                num = data[i][j]
-                for k in range(0, len(syms[i+1])):
-                    symbol = syms[i+1][k]
-                    
-                    if symbol[1] in range(num[1]-1,num[2]+1):
-                        #print(num)
-                        sum += num[0]
+                num = data[i][j]                
+                
+                for k in range(0, len(max(syms, key=len))):
 
-                for k in range(0, len(syms[i+2])):
-                    symbol = syms[i+2][k]
-                    
-                    if symbol[1] in range(num[1]-1,num[2]+1):
-                        #print(num)
-                        sum += num[0]
+                    get_symbol = lambda syms, i, k: syms[i][k] if len(syms[i]) >= k+1 else (0, -10)
 
-                for k in range(0, len(syms[i])):
-                    symbol = syms[i][k]
-                    
-                    if symbol[1] in range(num[1]-1,num[2]+1):
-                        #print(num)
+                    symbols = [get_symbol(syms, i+x, k)[1] for x in range(3)]
+
+                    if any(num[1]-1 <= sym <= num[2] for sym in symbols):                    
                         sum += num[0]
         print(sum)
 
