@@ -20,7 +20,28 @@ def main():
                 points += int(part_points)
 
     print(points)        
-    
+
+
+# Testing with timeit provided faster results
+def optimized_solution():
+    points = 0
+    with open("day4.txt", "r") as f:
+        for line in f:
+            part_points = 0.5
+
+            parts = line.replace(":", "|").strip("\n").split("|")
+
+            win = set(parts[1].split())
+            if "" in win: win.remove("")
+
+            # Uses intesection instead of looping
+            nums = set(parts[2].split())
+            found = nums.intersection(win) 
+
+            points += int(part_points*2**len(found))
+
+    print(points)        
+
 
 if __name__ == "__main__":
     main()
