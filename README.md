@@ -1,3 +1,5 @@
-My solutions to some of AoC 2023 puzzles with Python.
+My solutions to some of the [AoC](https://adventofcode.com/) 2023 puzzles with Python.
 
-Some are quite janky, some are better. After getting the solution, not optimization hasn't been done (at least yet).
+Some are quite janky, some are better. Some are more optimized, some less.
+
+Puzzle inputs are not saved here due to the rules of the event.
